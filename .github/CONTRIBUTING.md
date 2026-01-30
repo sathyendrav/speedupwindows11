@@ -12,7 +12,7 @@ Thanks for helping improve this project.
 ## How to propose changes
 
 1. Open an issue describing:
-	- Windows version/build
+ - Windows version/build
 	- PowerShell version
 	- What you ran (profile/features)
 	- Expected vs actual behavior

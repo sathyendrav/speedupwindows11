@@ -17,6 +17,12 @@ Main entry point: `Optimize-Windows11.ps1`
 ./Run-Optimize.ps1 -Profile Gaming -WhatIf
 ```
 
+Safety first:
+
+- Back up important data (and/or create a restore point) before applying tweaks.
+- Always start with `-WhatIf` to preview planned changes.
+- Some changes take full effect after a reboot/sign-out.
+
 ## Optimize.ps1 (simple script)
 
 This repo also includes `Optimize.ps1`, a small “one shot” script that applies a handful of common tweaks.
@@ -44,3 +50,9 @@ Run it (Administrator):
 ## Documentation
 
 See `.github/README.md` for full details, including the “Contextual Optimizations” section.
+
+## Automated tool
+
+Companion repo with additional Windows 11 update/automation scripts:
+
+- https://github.com/sathyendrav/windows11-update-powershell-scripts

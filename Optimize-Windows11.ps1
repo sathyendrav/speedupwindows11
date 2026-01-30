@@ -29,6 +29,9 @@
 .PARAMETER Features
   Features to apply. If omitted and -Interactive is not used, defaults are chosen by Profile.
 
+.PARAMETER ExcludeFeatures
+  Features to exclude from the final selection (useful when applying a profile but skipping specific tweaks).
+
 .PARAMETER Interactive
   Launches a simple prompt flow for selecting Profile and Features.
 
@@ -59,6 +62,10 @@
   .\Optimize-Windows11.ps1 -Profile Gaming -WhatIf
 
 .EXAMPLE
+  # Apply Gaming defaults but keep Windows Search (skip SearchIndexing)
+  .\Optimize-Windows11.ps1 -Profile Gaming -ExcludeFeatures SearchIndexing -WhatIf
+
+.EXAMPLE
   # Apply specific features for Work profile
   .\Optimize-Windows11.ps1 -Profile Work -Features Widgets,Chat,CopilotButton,VisualEffects,GameDVR
 
@@ -84,6 +91,11 @@ param(
   [Parameter()]
   [ValidateSet('Widgets', 'Chat', 'CopilotButton', 'VisualEffects', 'GameDVR', 'PowerPlan', 'SearchIndexing', 'StartupAppsReport', 'SystemSnapshot', 'DeliveryOptimization', 'FastStartup', 'QuietMode')]
   [string[]]$Features,
+
+  [Parameter()]
+  [Alias('ExcludeFeature')]
+  [ValidateSet('Widgets', 'Chat', 'CopilotButton', 'VisualEffects', 'GameDVR', 'PowerPlan', 'SearchIndexing', 'StartupAppsReport', 'SystemSnapshot', 'DeliveryOptimization', 'FastStartup', 'QuietMode')]
+  [string[]]$ExcludeFeatures,
 
   [Parameter()]
   [switch]$Interactive,
@@ -884,6 +896,20 @@ if ($Interactive -or -not $Profile) {
   if (-not $Features -or $Features.Count -eq 0) {
     $Features = Get-DefaultFeaturesForProfile -Profile $Profile
   }
+}
+
+# Normalize and apply exclusions.
+if ($Features) {
+  $Features = @($Features | Select-Object -Unique)
+}
+
+if ($ExcludeFeatures -and $ExcludeFeatures.Count -gt 0) {
+  $Features = @($Features | Where-Object { $_ -notin $ExcludeFeatures })
+}
+
+if (-not $Features -or $Features.Count -eq 0) {
+  Write-Log -Level 'WARN' -Message 'No features selected after applying defaults/exclusions. Nothing to do.'
+  return
 }
 
 # In interactive mode, prompt for a restore point so users don't miss the option.

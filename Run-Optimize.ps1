@@ -28,6 +28,11 @@ param(
   [string[]]$Features,
 
   [Parameter()]
+  [Alias('ExcludeFeature')]
+  [ValidateSet('Widgets', 'Chat', 'CopilotButton', 'VisualEffects', 'GameDVR', 'PowerPlan', 'SearchIndexing', 'StartupAppsReport', 'SystemSnapshot', 'DeliveryOptimization', 'FastStartup', 'QuietMode')]
+  [string[]]$ExcludeFeatures,
+
+  [Parameter()]
   [switch]$Interactive,
 
   [Parameter()]
@@ -55,6 +60,7 @@ $params = @{}
 
 if ($DeviceProfile) { $params.Profile = $DeviceProfile }
 if ($Features -and $Features.Count -gt 0) { $params.Features = $Features }
+if ($ExcludeFeatures -and $ExcludeFeatures.Count -gt 0) { $params.ExcludeFeatures = $ExcludeFeatures }
 if ($Interactive) { $params.Interactive = $true }
 if ($Revert) { $params.Revert = $true }
 if ($BackupPath) { $params.BackupPath = $BackupPath }

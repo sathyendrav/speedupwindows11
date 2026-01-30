@@ -83,11 +83,21 @@ Revert a specific run:
 ## Safety notes
 
 - Prefer running with `-WhatIf` first.
+- Back up important data (and/or create a restore point) before changing system settings.
 - Consider `-CreateRestorePoint` before applying changes.
 - Some changes require restarting Explorer, signing out, or rebooting to fully apply.
 - If you are unsure about a change, select only the feature you want instead of applying a whole profile.
 
 Note: `SystemSnapshot` is included in profile defaults to capture before/after context in the run folder. It only records information (no system setting changes).
+
+### Excluding a feature from a profile
+
+If you want to apply a profile but skip a specific tweak, use `-ExcludeFeatures`:
+
+```powershell
+# Gaming profile, but keep Windows Search enabled
+./Optimize-Windows11.ps1 -Profile Gaming -ExcludeFeatures SearchIndexing -WhatIf
+```
 
 ## Hardware/OEM performance tools (important)
 
@@ -120,6 +130,8 @@ If you’re using a Lenovo Legion (or similar gaming laptop), these items usuall
 - **Overlays**: Disable unneeded overlays/recording (Xbox Game Bar/Game DVR, vendor overlays) if you see stutter.
 
 Tip: Make one change at a time and compare FPS/frametime to avoid chasing placebo.
+
+Lenovo note: Prefer tuning through **Lenovo Vantage / Legion Toolkit** (thermal/GPU modes) and managing startup apps, rather than disabling random Lenovo services unless you know exactly what they do.
 
 ## Contextual Optimizations
 
@@ -164,12 +176,21 @@ If you don’t want to remember commands, use the included wrapper:
 # Preview
 ./Run-Optimize.ps1 -Profile Gaming -WhatIf
 
+# Preview Gaming defaults but skip SearchIndexing
+./Run-Optimize.ps1 -Profile Gaming -ExcludeFeatures SearchIndexing -WhatIf
+
 # Apply Gaming defaults with a restore point
 ./Run-Optimize.ps1 -Profile Gaming -CreateRestorePoint
 
 # Revert the last run
 ./Run-Optimize.ps1 -Revert
 ```
+
+## Automated tool (companion repo)
+
+If you want a larger collection of update/automation scripts, see:
+
+- https://github.com/sathyendrav/windows11-update-powershell-scripts
 
 ## License
 

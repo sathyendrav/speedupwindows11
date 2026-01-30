@@ -1,0 +1,9 @@
+
+# Editor/IDE
+.vscode/
+
+# Python virtual environment
+.venv/
+
+# Local docs/notes
+srcDocs/

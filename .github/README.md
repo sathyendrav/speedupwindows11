@@ -87,6 +87,8 @@ Revert a specific run:
 - Some changes require restarting Explorer, signing out, or rebooting to fully apply.
 - If you are unsure about a change, select only the feature you want instead of applying a whole profile.
 
+Note: `SystemSnapshot` is included in profile defaults to capture before/after context in the run folder. It only records information (no system setting changes).
+
 ## Hardware/OEM performance tools (important)
 
 On many high-performance laptops/desktops, OEM utilities can impact performance more than OS tweaks:
@@ -105,6 +107,19 @@ These tools often control:
 - Vendor power plans and driver tuning
 
 If you’re chasing gaming performance, validate OEM settings first (and make sure BIOS/chipset/GPU drivers are up to date).
+
+### Lenovo Legion quick checklist
+
+If you’re using a Lenovo Legion (or similar gaming laptop), these items usually have a bigger impact than Windows UI tweaks:
+
+- **GPU mode / MUX**: Prefer **dGPU-only** (MUX on) for maximum FPS; use Hybrid only when you need battery life.
+- **Thermal profile**: Set an appropriate performance mode (Balanced/Performance) and ensure fans aren’t constrained.
+- **Power adapter**: Many Legion models throttle heavily on battery; benchmark while plugged in.
+- **Windows power mode**: Keep Windows set to Best performance when gaming.
+- **Driver/firmware order** (rule of thumb): BIOS/UEFI → chipset/platform drivers → GPU driver → OEM utility updates.
+- **Overlays**: Disable unneeded overlays/recording (Xbox Game Bar/Game DVR, vendor overlays) if you see stutter.
+
+Tip: Make one change at a time and compare FPS/frametime to avoid chasing placebo.
 
 ## Automation (one-click runner)
 

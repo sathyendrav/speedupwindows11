@@ -658,9 +658,9 @@ function Get-DefaultFeaturesForProfile {
   param([Parameter(Mandatory)] [string]$Profile)
 
   switch ($Profile) {
-    'Laptop' { return @('Widgets', 'Chat', 'CopilotButton', 'VisualEffects', 'PowerPlan', 'StartupAppsReport') }
-    'Work'   { return @('Widgets', 'Chat', 'CopilotButton', 'VisualEffects', 'DeliveryOptimization', 'PowerPlan', 'StartupAppsReport') }
-    'Gaming' { return @('Widgets', 'Chat', 'CopilotButton', 'VisualEffects', 'QuietMode', 'DeliveryOptimization', 'GameDVR', 'PowerPlan', 'SearchIndexing', 'StartupAppsReport') }
+    'Laptop' { return @('SystemSnapshot', 'Widgets', 'Chat', 'CopilotButton', 'VisualEffects', 'PowerPlan', 'StartupAppsReport') }
+    'Work'   { return @('SystemSnapshot', 'Widgets', 'Chat', 'CopilotButton', 'VisualEffects', 'DeliveryOptimization', 'PowerPlan', 'StartupAppsReport') }
+    'Gaming' { return @('SystemSnapshot', 'Widgets', 'Chat', 'CopilotButton', 'VisualEffects', 'QuietMode', 'DeliveryOptimization', 'GameDVR', 'PowerPlan', 'SearchIndexing', 'StartupAppsReport') }
   }
 }
 
@@ -883,6 +883,18 @@ if ($Interactive -or -not $Profile) {
 } else {
   if (-not $Features -or $Features.Count -eq 0) {
     $Features = Get-DefaultFeaturesForProfile -Profile $Profile
+  }
+}
+
+# In interactive mode, prompt for a restore point so users don't miss the option.
+if ($Interactive -and -not $WhatIfPreference -and -not $CreateRestorePoint) {
+  try {
+    $CreateRestorePoint = $PSCmdlet.ShouldContinue(
+      'Create a System Restore Point before applying changes? (Recommended)',
+      'Restore Point'
+    )
+  } catch {
+    # If the host cannot prompt, keep current value.
   }
 }
 

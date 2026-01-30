@@ -1,4 +1,4 @@
-# speedupwindows11
+﻿# speedupwindows11
 
 PowerShell script to apply a (safe-ish) set of Windows 11 performance and quality-of-life tweaks with per-device profiles, optional interactivity, and an audit/revert trail.
 
@@ -25,12 +25,12 @@ Safety first:
 
 ## Optimize.ps1 (simple script)
 
-This repo also includes `Optimize.ps1`, a small “one shot” script that applies a handful of common tweaks.
+This repo also includes `Optimize.ps1`, a small "one shot" script that applies a handful of common tweaks.
 
 What it does:
 
 - Attempts to create a System Restore Point via `Checkpoint-Computer`
-- Duplicates the “Ultimate Performance” power plan GUID
+- Duplicates the "Ultimate Performance" power plan GUID
 - Sets a telemetry policy value (`AllowTelemetry=0`)
 - Enables Windows Game Mode
 - Hides taskbar Widgets and Chat
@@ -49,7 +49,7 @@ Run it (Administrator):
 
 ## Documentation
 
-See `.github/README.md` for full details, including the “Contextual Optimizations” section.
+See `.github/README.md` for full details, including the "Contextual Optimizations" section.
 
 ## Automated tool
 

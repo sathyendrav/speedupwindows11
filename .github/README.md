@@ -121,6 +121,41 @@ If you’re using a Lenovo Legion (or similar gaming laptop), these items usuall
 
 Tip: Make one change at a time and compare FPS/frametime to avoid chasing placebo.
 
+## Contextual Optimizations
+
+Depending on your use case, consider these targeted settings. (Most of these are Windows/OEM settings and are not changed by this script.)
+
+### Gaming & High Performance
+
+- **VBS / Memory Integrity (security trade-off):** Disabling Virtualization-Based Security features (like “Memory integrity” under Windows Security → Device security → Core isolation) can improve performance on some systems, but it reduces protection against certain attacks. Only change this if you understand and accept the security impact.
+- **Game Mode:** Enable Windows Game Mode to prioritize resources for the active game.
+- **Hardware-accelerated GPU scheduling:** If supported, enabling it (Settings → System → Display → Graphics → Default graphics settings) can improve smoothness in some scenarios.
+
+### Laptop (for example: Lenovo Legion)
+
+- **Dynamic Refresh Rate (DRR):** If your panel supports it, set refresh rate to “Dynamic” to reduce power usage during static work while still allowing higher refresh during motion.
+- **Power plans:** “Ultimate Performance” is helpful when plugged in; this project’s Gaming profile attempts to select it. You can also duplicate it manually:
+
+```powershell
+powercfg -duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61
+```
+
+- **Hibernate vs Modern Standby:** If you see battery drain while sleeping in transit, enabling Hibernate can help:
+
+```powershell
+powercfg /hibernate on
+```
+
+### Work / Development PC
+
+- **Indexer optimization:** If you keep Windows Search enabled, consider excluding large dependency trees (for example: `node_modules`, build outputs, package caches) from indexing.
+- **Focus / Focus Assist:** Scheduling Focus times can reduce notification-related background activity during work blocks.
+
+### Server (headless / home lab)
+
+- **Processor scheduling:** Consider setting processor scheduling to prioritize “Background services” (System Properties → Advanced → Performance → Advanced) for server-style workloads.
+- **Visuals:** Use “Adjust for best performance” to strip UI effects if the machine is used locally with a GUI.
+
 ## Automation (one-click runner)
 
 If you don’t want to remember commands, use the included wrapper:

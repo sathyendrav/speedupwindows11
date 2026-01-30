@@ -34,7 +34,16 @@ Guard rails:
 
 # Interactive mode (prompts for profile/features)
 ./Optimize-Windows11.ps1 -Interactive
+
+# Apply with a restore point (recommended)
+./Optimize-Windows11.ps1 -Profile Work -CreateRestorePoint
 ```
+
+## Safety: restore points
+
+Before making registry/service changes, consider creating a System Restore Point.
+
+This script supports `-CreateRestorePoint` (best-effort). It may fail if System Protection is disabled; the script logs a warning and continues.
 
 ## Features
 
@@ -74,8 +83,43 @@ Revert a specific run:
 ## Safety notes
 
 - Prefer running with `-WhatIf` first.
+- Consider `-CreateRestorePoint` before applying changes.
 - Some changes require restarting Explorer, signing out, or rebooting to fully apply.
 - If you are unsure about a change, select only the feature you want instead of applying a whole profile.
+
+## Hardware/OEM performance tools (important)
+
+On many high-performance laptops/desktops, OEM utilities can impact performance more than OS tweaks:
+
+- Lenovo: Lenovo Vantage / Legion Toolkit
+- ASUS: Armoury Crate
+- Dell/Alienware: Dell Command / Alienware Command Center
+- MSI: MSI Center
+- HP: Omen Gaming Hub
+
+These tools often control:
+
+- MUX / GPU mode
+- Thermal/fan profiles
+- PL1/PL2 limits
+- Vendor power plans and driver tuning
+
+If you’re chasing gaming performance, validate OEM settings first (and make sure BIOS/chipset/GPU drivers are up to date).
+
+## Automation (one-click runner)
+
+If you don’t want to remember commands, use the included wrapper:
+
+```powershell
+# Preview
+./Run-Optimize.ps1 -Profile Gaming -WhatIf
+
+# Apply Gaming defaults with a restore point
+./Run-Optimize.ps1 -Profile Gaming -CreateRestorePoint
+
+# Revert the last run
+./Run-Optimize.ps1 -Revert
+```
 
 ## License
 
